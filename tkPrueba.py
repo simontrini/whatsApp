@@ -83,7 +83,7 @@ class Asistencia:
         self.bd = CrudSqlite("dataMad")
         self.act = tkmodelo(self.bd, 'actividad', 'nombreActividad') 
         self.listarActividades()
-        self.actividades.set('Seleccione Una Actividad')
+        self.actividades.set('Seleccione Una Actividad1')
         #self.actividades.current(END)
         self.asi = tkmodelo(self.bd, 'asistencia', 'persona_id')
         self.per = tkmodelo(self.bd, 'personas', 'nombreCompleto')
