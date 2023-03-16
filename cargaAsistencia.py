@@ -64,7 +64,7 @@ if __name__=='__main__':
     cA = CargarAsistencia(bd, actividad, archivo)
     #act = Modelo(bd, 'actividad', 'nombreActividad')
     print('cargando actividad')
-#import csv
+##import csv
 #import sqlite3
 #conexion=sqlite3.connect("dataMad")
 ##cursor=conexion.execute("select * FROM main.personas")
