@@ -32,6 +32,7 @@ class CrudSqlite():
         return cursor_
     
     def agregar(self, sql):
+        #try:
         self.connect()
         #sql = """INSERT INTO "main"."personas" 
         #("nombreCompleto", "cedula", "telefono", "correE", "organizacion") 
@@ -39,7 +40,12 @@ class CrudSqlite():
         cursor = self.conexion.execute(sql)
         #print(cursor.lastrowid) #lastrowid rowcount
         self.conexion.commit() 
-        self.conexion.close()        
+        self.conexion.close()     
+        #except Exception as eror:
+            #print(type(eror))    
+            #print(eror.args)     
+            #print(eror)
+            
         
     def close(self):
         self.conexion.close()
