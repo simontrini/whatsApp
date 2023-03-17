@@ -7,17 +7,17 @@ from smsAirMore import SmsAirMore
 #kannel = smsKannel.SmsKannel()
 airMore = SmsAirMore()
 personas = []
-bd = crudSqlite.CrudSqlite("dataMad")
-cursor = bd.listar("select nombreCompleto, telefono FROM main.personas JOIN main.asistencia on main.personas.id = main.asistencia.persona_id and main.asistencia.actividad_id = 22")
-#print(cursor)
-for fila in cursor:
-        personas.append({"nombre":fila[0],"telefono":"+58 {0}".format(fila[1])})
-        #print(fila)
-#personas = [
-            #{"nombre":"simon","telefono":"+58 0412-7239359"},
-            ##{"nombre":"Kalioska Garrido","telefono":"+58 4265199557"},
-            ##{"nombre":"cruz meryyy","telefono":"+584129027646"}
-            #]
+#bd = crudSqlite.CrudSqlite("dataMad")
+#cursor = bd.listar("select nombreCompleto, telefono FROM main.personas JOIN main.asistencia on main.personas.id = main.asistencia.persona_id and main.asistencia.actividad_id = 22")
+##print(cursor)
+#for fila in cursor:
+        #personas.append({"nombre":fila[0],"telefono":"+58 {0}".format(fila[1])})
+        ##print(fila)
+personas = [
+            {"nombre":"simon","telefono":"+58 0412-7239359"},
+            #{"nombre":"Kalioska Garrido","telefono":"+58 4265199557"},
+            #{"nombre":"cruz meryyy","telefono":"+584129027646"}
+            ]
 #mensajes = """Coordinadora De Trabajadores En Lucha De Los Altos Mirandinos
 #Invita a {0}35.
 #"""
