@@ -23,6 +23,9 @@ class Modelo():
     def buscar(self, campo, dato):
         return(self.bd.listar("""SELECT * FROM {0} WHERE {1} = '{2}'""".format(self.tabla, campo, dato)))
     
+    def buscarEntre(self, campo, dato):
+        return(self.bd.listar("""SELECT * FROM {0} WHERE {1} LIKE '%{2}%' """.format(self.tabla, campo, dato)))    
+    
     def crear(self, datos, clave):
         cursor = self.buscar(self.clave,clave)
         if cursor:

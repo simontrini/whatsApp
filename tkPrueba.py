@@ -63,7 +63,7 @@ class Asistencia:
         self.lblBotones = ttk.Labelframe(self.marcoAsistencia)
         self.lblBotones.grid(column=0, row=4, sticky=(W, E))
         ttk.Button(self.lblBotones, text="Nuevo",command=self.formPersona ).grid(column=0, row=0, sticky=W)
-        ttk.Button(self.lblBotones, text="Agregar" ).grid(column=1, row=0, sticky=W)
+        ttk.Button(self.lblBotones, text="Agregar",command=self.formAsistencia).grid(column=1, row=0, sticky=W)
         ttk.Button(self.lblBotones, text="Eliminar").grid(column=2, row=0, sticky=W)        
         self.lblBotones.columnconfigure(0, weight=1) 
         self.lblBotones.rowconfigure(0, weight=1)        
@@ -109,7 +109,64 @@ class Asistencia:
         self.listarAsistencia()
         return()        
         
+    def formAsistencia(self):
+        t = Toplevel(self.ventana)
+        self.textAsistencia = StringVar()
+        self.actividad = ttk.Combobox(
+            t,
+            state="readonly",
+            textvariable=self.textAsistencia) 
+        self.actividad.grid(column=0, row=2, sticky=(W, E)) 
+        self.actividad['values'] = [self.actividades.get()]
+        self.actividad.set(self.actividades.get()) 
+        #----------------
+        self.textPersona = StringVar()
+        self.persona = ttk.Entry(
+            t,
+            #state="readonly",
+            #command=self.buscarPersonas,
+            textvariable=self.textPersona) 
+        self.persona.grid(column=0, row=3, sticky=(W, E)) 
+        self.persona.bind("<Key>", self.buscarPersonas)
+        #----------------
+        self.treePersona = ttk.Treeview(t, height=10, columns=['id','nombre','telefono','correo','organizacion'], show= 'headings')
+        self.treePersona.grid(row=5, column=0)
+        self.treePersona.heading("id",text="Id")
+        self.treePersona.heading("nombre",text="Nombre")
+        self.treePersona.heading("telefono",text="telefono")
+        self.treePersona.heading("correo",text="correo")
+        self.treePersona.heading("organizacion",text="organizacion")  
+        self.treePersona.bind("<Double-Button-1>", self.agregarAsistente)
+        #-----------------
+        #print(self.actividad.get())
+        #print(self.buscarPersonas())
+        
+    def agregarAsistente(self,eventObject):
+        for selected_item in self.treePersona.selection():
+            item = self.treePersona.item(selected_item)
+            id_persona = item['values'][0]
+            id_actividad = self.act.buscar(self.act.clave,self.textAsistencia.get())[0][0]#self.actividades.get()
+            ## show a message
+            print(id_persona,id_actividad)          
+        #print('aistente',self.treePersona.selection_get(item))
+        try:
+            self.asi.crear((id_persona,id_actividad,'asistente','',0),'') 
+        except:
+            print('warnin')
+        #messagebox.showinfo(message="Mensaje", title="Título")
+        self.textPersona.set('')
+        self.listarAsistencia2()
+        self.listarAsistencia1()
+        
+        #pass  
+        return
     
+    
+    def buscarPersonas(self,eventObject):
+        print('buscamdo')
+        self.listarAsistencia1()
+        pass
+        
     def formPersona(self):
         #self.per.nuevo(self.ventana)
         t = Toplevel(self.ventana)
@@ -197,8 +254,26 @@ class Asistencia:
             #self.scrolledtext1.insert(END,texto )
         self.actividades['values'] = act  
         self.actividades.set(fila[1])
-        
+    
+    def listarAsistencia1(self):
+        for item in self.treePersona.get_children():
+            self.treePersona.delete(item)        
+        #actividad = self.act.buscar(self.act.clave, self.actividad.get())
+       
+        #actividad_id = actividad[0][0]
+        #cursor = self.asi.buscar('actividad_id', actividad_id)
+        cursor = self.per.buscarEntre(self.per.clave, self.textPersona.get())
+        print(cursor,self.per.clave, self.textPersona.get())       
+        #act = []
+        for fila in cursor:
+            #persona = self.per.buscar('id',fila[1])[0]
+            self.treePersona.insert('',END,values=(fila[0],fila[1],fila[2],fila[3],fila[4]))  
+    
     def listarAsistencia(self,eventObject ):
+        self.listarAsistencia2()
+        return
+        
+    def listarAsistencia2(self ):
         #def clear_all():
         #self.act.cform(self.marcoAsistencia)
         for item in self.treeAsistencias.get_children():
@@ -220,7 +295,8 @@ class Asistencia:
             self.treeAsistencias.insert('',END,values=(persona[0],persona[1],persona[2],persona[3]))
             #self.scrolledtext1.insert(END,texto )
         #self.actividades['values'] = act
-        
+        return
+    
     def destruirHijos(self, padre):        
         for child in padre.winfo_children(): 
             print(child.destroy()   )
