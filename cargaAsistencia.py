@@ -59,13 +59,8 @@ class CargarAsistencia():
 if __name__=='__main__':
     bd = CrudSqlite("dataMad")
     #act = ['nombreActividad','fecha','lugar','descripcion']
-<<<<<<< HEAD
     actividad = ('PadronCambioEnPaz2024','2024-06-01 14:00:00','Guaicaipuro','Padron electoral cambio en paz guaicaipuro')
     archivo = 'padron.csv'
-=======
-    actividad = ('Reunion CTLAM 09-03','2023-03-09 13:00:00','desconocido','reunion ordinaria de la coordinadora ')
-    archivo = 'Reunion CTLAM 09-03.csv'
->>>>>>> 3bb6e0caa9eabb047cfcdfb7a0e813084302f93c
     cA = CargarAsistencia(bd, actividad, archivo)
     #act = Modelo(bd, 'actividad', 'nombreActividad')
     print('cargando actividad')
