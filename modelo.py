@@ -25,11 +25,12 @@ class Modelo():
     
     def crear(self, datos, clave):
         cursor = self.buscar(self.clave,clave)
+        #print(cursor[0][0])
         if cursor:
-            #print('si esta')
+            print('si esta')
             return(cursor[0][0])
         sql = """INSERT INTO {0}({1}) VALUES {2}""".format(self.tabla, ','.join(self.campos),datos)
-        print(sql)
+        print('1212',sql)
         self.bd.agregar(sql)
         cursor = self.buscar(self.clave,clave)
         return(cursor[0][0])

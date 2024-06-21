@@ -9,7 +9,7 @@ class CargarAsistencia():
         self.archivo = archivo
         self.act = Modelo(self.bd, 'actividad', 'nombreActividad')
         self.asi = Modelo(self.bd, 'asistencia', 'persona_id')
-        self.per = Modelo(self.bd, 'personas', 'nombreCompleto')        
+        self.per = Modelo(self.bd, 'personas', 'cedula')        
         self.agregarActividad()
         self.cargaData()
         
@@ -47,7 +47,7 @@ class CargarAsistencia():
     
     def nuevaPersona(self, data):
         #print(self.ventana.children)
-        id = self.per.crear(data,data[0])
+        id = self.per.crear(data,data[1])
         return(id)   
     
     def asistencia(self, id_persona):
@@ -59,8 +59,8 @@ class CargarAsistencia():
 if __name__=='__main__':
     bd = CrudSqlite("dataMad")
     #act = ['nombreActividad','fecha','lugar','descripcion']
-    actividad = ('Taller de Formación Técnica 1','2023-03-01 14:00:00','Oficina','1er Taller de formación técnica con adolescentes de la comunidad el mána ')
-    archivo = 'tallerFormacionTecnica1.csv'
+    actividad = ('PadronCambioEnPaz2024','2024-06-01 14:00:00','Guaicaipuro','Padron electoral cambio en paz guaicaipuro')
+    archivo = 'padron.csv'
     cA = CargarAsistencia(bd, actividad, archivo)
     #act = Modelo(bd, 'actividad', 'nombreActividad')
     print('cargando actividad')
